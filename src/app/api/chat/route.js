@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 
 import childProtectionAssistant from "@/utils/chat/childProtectionAssistant";
 import openai from "@/utils/openai";
+import { CreateConversation } from "@/DB/conversation";
 
 export async function POST(request) {
-  const { message, threadId } = await request.json();
+  const { message, threadId, userId } = await request.json();
   const assistant = await childProtectionAssistant();
 
   await openai.beta.threads.messages.create(
@@ -29,7 +30,7 @@ export async function POST(request) {
 
     const {sanitizeInput, answer} = JSON.parse(messageList.data[0].content[0].text.value);
 
-    //@TODO store messages into conversation table
+    await CreateConversation({answer: sanitizeInput, question: answer, userId });
     return NextResponse.json({ runStatus: run.status, answer });
   }
 

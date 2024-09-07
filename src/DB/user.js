@@ -1,12 +1,12 @@
 import { sql } from '@vercel/postgres';
 
 export async function CreateUser({password, threadID}) {
-    await sql`INSERT INTO User_Information (Password, Thread_ID) VALUES (${password}, ${threadID});`;
+  return await sql`INSERT INTO User_Information (Password, Thread_ID) VALUES (${password}, ${threadID}) RETURNING *`;
 }
 
 export async function GetUsers() {
-    const user = await sql`SELECT * FROM User_Information;`;
-    return user.rows;
+  const user = await sql`SELECT * FROM User_Information;`;
+  return user.rows;
 }
 
 export async function GetUser(id) {
