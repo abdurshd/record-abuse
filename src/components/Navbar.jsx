@@ -22,7 +22,7 @@ export default function NavbarComponent() {
       }}
     >
       <NavbarBrand>
-        <Link href="/" className="font-bold text-inherit">RECORD-ABUSE</Link>
+        <Link href="/" className="font-bold text-inherit">SAFE NEST</Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
