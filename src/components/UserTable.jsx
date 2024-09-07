@@ -16,16 +16,8 @@ const columns = [
     label: "id",
   },
   {
-    key: "user_id",
-    label: "user_id",
-  },
-  {
     key: "created_at",
     label: "created_at",
-  },
-  {
-    key: "question",
-    label: "question",
   },
   {
     key: "answer",
@@ -36,10 +28,8 @@ const columns = [
 
 export default function TableComponent({ rows = []}) {
   const router = useRouter();
-  const handleOnRowAction = React.useCallback((key) => {
-    const selectedUser = rows[key - 1];
-
-    router.push(`/admin/user/${selectedUser.id}`);
+  const handleOnRowAction = React.useCallback((id) => {
+    router.push(`/admin/user/${id}`);
   }, []);
 
   return (
@@ -51,7 +41,6 @@ export default function TableComponent({ rows = []}) {
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>
       <TableBody items={rows}>
-       
         {(item) => (
           <TableRow key={item.key}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
