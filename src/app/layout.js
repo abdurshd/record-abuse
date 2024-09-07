@@ -1,3 +1,4 @@
+import NavbarComponent from "@/components/Navbar";
 import "./globals.css";
 import { NextUIProvider } from "@nextui-org/react";
 
@@ -10,7 +11,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-      <NextUIProvider>{children}</NextUIProvider>
+        <NextUIProvider>
+          <NavbarComponent />
+          {children}
+        </NextUIProvider>
       </body>
     </html>
   );
