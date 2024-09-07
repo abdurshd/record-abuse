@@ -44,3 +44,7 @@ export async function getLatestConversation(userID) {
   return conversation.rows
 }
 
+export async function createAbuse(x, y, conversationID, message) {
+  await sql`INSERT INTO Physical_Abuse (X, Y, Conversation_ID, Message) VALUES (x, y, conversationID, message)`;
+}
+

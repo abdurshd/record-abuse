@@ -10,6 +10,9 @@ export default function BodyQuestion() {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [ message, setMessage ] = React.useState('');
   const [ messages, setMessages ] = React.useState([]);
+  const [clicks, setClicks] = React.useState([]);
+  const [ xPercent, setXPercent ] = setXPercent(null);
+  const [ yPercent, setYPercent ] = setYPercent(null);
   function handleMessageChange(e) {
     setMessage(e.target.value);
   }
@@ -19,17 +22,28 @@ export default function BodyQuestion() {
     setMessage('');
     onClose();
   }
-  const handleOnOpen = (e) => {
-    console.log(e)
-    let x = e.clientX
-    let y = e.clientY
+  const handleOnOpen = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const imgWidth = rect.width;
+    const imgHeight = rect.height;
+    setXPercent((x / imgWidth) * 100)
+    setYPercent((y / imgHeight) * 100)
     onOpen();
+  }
+
+  const handleButton = () => {
+    console.log([xPercent, yPercent, messages])
   }
 
   return (
     <div>
       <Image src={bodyImage} onClick={handleOnOpen} />
       <PrettyJSON>{messages}</PrettyJSON>
+      <Button color="primary" onPress={handleButton}>
+        Done
+      </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
