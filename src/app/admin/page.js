@@ -2,13 +2,14 @@ import React from "react";
 
 import { GetUserMessages } from '@/DB/user';
 import UserTable from '@/components/UserTable'
+import CenteredLayout from "@/components/CenteredLayout";
 
 export default async function Admin() {
   const users = await GetUserMessages();
 
   return (
-    <div>
+    <CenteredLayout>
       <UserTable rows={users}/>
-    </div>
+    </CenteredLayout>
   );
 }
