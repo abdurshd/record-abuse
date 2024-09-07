@@ -1,15 +1,21 @@
 import React from "react";
-
-import { GetUserMessages } from '@/DB/user';
+import { sql } from "@vercel/postgres";
 import UserTable from '@/components/UserTable'
 import CenteredLayout from "@/components/CenteredLayout";
 
 export default async function Admin() {
-  const users = await GetUserMessages();
+  
+  const result = await sql`
+  SELECT DISTINCT ON (User_ID) User_ID as ID, CREATED_AT, ANSWER
+  FROM Conversation
+  ORDER BY User_ID, CREATED_AT DESC;
+  `
+
+  console.log(result)
 
   return (
     <CenteredLayout>
-      <UserTable rows={users}/>
+      <UserTable rows={result.rows}/>
     </CenteredLayout>
   );
 }
