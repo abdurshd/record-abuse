@@ -1,6 +1,9 @@
-const { Button } = require("@nextui-org/react");
-const { default: TextAreaComponent } = require("./TextAreaComponent");
-const { default: BodyQuestion } = require("./BodyQuestion");
+import { useState } from "react";
+
+import { Button } from "@nextui-org/react";
+import  TextAreaComponent from "./TextAreaComponent";
+import  BodyQuestion from "./BodyQuestion";
+
 
 export default function QuestionLogic({setMessageType, messageType, conversationId, setConversationId, setQuestion }) {
 
