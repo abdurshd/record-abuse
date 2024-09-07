@@ -36,3 +36,11 @@ export async function getUserByConversationId(conversationId) {
   return users.rows[0];
 }
 
+export async function getLatestConversation(userID) {
+  const conversation = await sql`SELECT DISTINCT ON (User_ID) *
+  FROM Conversation
+  WHERE User_ID = ${userID}
+  ORDER BY User_ID, CREATED_AT DESC;`
+  return conversation.rows
+}
+
