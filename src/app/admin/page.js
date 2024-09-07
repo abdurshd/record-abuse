@@ -11,8 +11,6 @@ export default async function Admin() {
   ORDER BY User_ID, CREATED_AT DESC;
   `
 
-  console.log(result)
-
   return (
     <CenteredLayout>
       <UserTable rows={result.rows}/>

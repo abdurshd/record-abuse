@@ -5,7 +5,7 @@ import ABUSE_CLASSIFICATION from "@/prompts/ABUSE_CLASSIFICATION";
 import openai from "@/utils/openai";
 
 const ClassifiedAbuse = z.object({
-  category: z.enum(['Physical abuse', 'Sexual abuse', 'Emotional abuse', 'Medical abuse', 'Neglect']),
+  category: z.enum(['Physical abuse', 'Sexual abuse', 'Emotional abuse', 'Medical abuse', 'Neglect', 'None']),
 });
 
 export default async function classifyAbuse({ conversationHistory }) {

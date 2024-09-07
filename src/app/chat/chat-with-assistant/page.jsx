@@ -1,35 +1,36 @@
 "use client"
 
-import  React, {useEffect, useState} from 'react';
+import  React, { useState} from 'react';
 import {Button} from "@nextui-org/react";
 import ResponseMessage from '@/components/ResponseMessage';
 import TextAreaComponent from '@/components/TextAreaComponent';
 import CenteredLayout from '@/components/CenteredLayout';
+import FIRST_MESSAGE from '@/prompts/FIRST_QUESTION';
+import BodyQuestion from '@/components/BodyQuestion';
 
 export default function ChatWithAssistant() {
-  // const [threadId, setThreadId] = useState('thread_Lhr0CxsKIqxDuV2OZ0dAWdJT');
-  const [threadId, setThreadId] = useState('');
-  const [currentUserId, setCurrentUserId] = useState('');
+  const [conversationId, setConversationId] = useState(null);
   const [message, setMessage] = useState('');
-  const [question, setQuestion] = useState('Hello how are you?');
+  const [messageType, setMessageType] = useState('text');
+  const [question, setQuestion] = useState(FIRST_MESSAGE);
   const [isLoading, setLoading] = useState(false);
 
-  const textAreaIsDisabled = isLoading;
+  const isDisabledState = isLoading;
 
   function handleMessageChange(e) {
     setMessage(e.target.value);
   }
 
-  const handleCreateThread = async (e) => {
+  const handleCreateFirstConversation = async (e) => {
     e.preventDefault();
 
     try {
-      const { thread, userId } = await fetch('/api/user', {
+      const { conversation } = await fetch('/api/chat', {
         method: 'POST',
       }).then(r => r.json());
 
-      setThreadId(thread.id);
-      setCurrentUserId(userId);
+      setConversationId(conversation.id);
+      setQuestion(conversation.question);
     } catch (err) {
       console.error(err);
     }
@@ -40,13 +41,15 @@ export default function ChatWithAssistant() {
     setLoading(true);
 
     try {
-      const { answer } = await fetch('/api/chat', {
+      const { conversation, messageType } = await fetch('/api/chat/message', {
         method: 'POST',
-        body: JSON.stringify({ message, threadId, userId: currentUserId }),
+        body: JSON.stringify({ message, conversationId }),
       }).then(r => r.json());
 
       setMessage('');
-      setQuestion(answer);
+      setQuestion(conversation.question);
+      setConversationId(conversation.id);
+      setMessageType(messageType);
     } catch (e) {
       console.error(e);
     }
@@ -54,20 +57,25 @@ export default function ChatWithAssistant() {
   }
 
   return (
-    <CenteredLayout className="gap-5" style={{ height: "calc(100vh - 84px)"}}>
+    <CenteredLayout className="gap-5" style={{ minHeight: "calc(100vh - 84px)"}}>
       <ResponseMessage message={question} />
-      userId: {currentUserId}
-      {threadId !== '' && (
-        <>
-          <TextAreaComponent
-            value={message}
-            isDisabled={textAreaIsDisabled}
-            onChange={handleMessageChange}
-          />
-          <Button color="primary" onClick={handleSendMessage}>Send</Button>
-        </>
+      <p>conversationId: {conversationId}</p>
+      <p>messageType: {messageType}</p>
+      {conversationId !== null && (
+        messageType === 'body' ? (
+          <BodyQuestion /> 
+        ) : (
+          <>
+            <TextAreaComponent
+              value={message}
+              isDisabled={isDisabledState}
+              onChange={handleMessageChange}
+            />
+            <Button color="primary" onClick={handleSendMessage} isLoading={isDisabledState}>Send</Button>
+          </>
+        )
       )}
-      {threadId === '' && <Button onClick={handleCreateThread}>Start chatting</Button>}
+      {conversationId === null && <Button onClick={handleCreateFirstConversation}>Start chatting</Button>}
     </CenteredLayout>
   );
 }

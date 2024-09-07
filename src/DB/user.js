@@ -1,7 +1,9 @@
 import { sql } from '@vercel/postgres';
 
 export async function CreateUser({password, threadID}) {
-  return await sql`INSERT INTO User_Information (Password, Thread_ID) VALUES (${password}, ${threadID}) RETURNING *`;
+  const { rows } = await sql`INSERT INTO User_Information (Password, Thread_ID) VALUES (${password}, ${threadID}) RETURNING *`;
+
+  return rows[0];
 }
 
 export async function GetUsers() {
@@ -26,5 +28,11 @@ export async function GetMessagesByUserId(userID) {
 export async function GetUserMessages() {
   const message = await sql`SELECT * FROM Conversation;`;
   return message.rows;
+}
+
+export async function getUserByConversationId(conversationId) {
+  const users = await sql`SELECT u.* FROM Conversation c JOIN User_Information u ON u.ID = c.User_ID WHERE c.ID=(${conversationId}) LIMIT 1;`;
+
+  return users.rows[0];
 }
 
