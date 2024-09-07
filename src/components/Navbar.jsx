@@ -22,7 +22,7 @@ export default function NavbarComponent() {
       }}
     >
       <NavbarBrand>
-        <p className="font-bold text-inherit">RECORD-ABUSE</p>
+        <p className="font-bold text-inherit"><Link href="/">RECORD-ABUSE</Link></p>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem isActive>
@@ -39,16 +39,6 @@ export default function NavbarComponent() {
           <Link color="foreground" href="#">
             My records
           </Link>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
