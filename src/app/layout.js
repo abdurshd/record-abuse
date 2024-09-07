@@ -1,6 +1,7 @@
 import NavbarComponent from "@/components/Navbar";
 import "./globals.css";
 import { NextUIProvider } from "@nextui-org/react";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Report Child abuse",
@@ -9,11 +10,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>
-        <NextUIProvider>
+    <html lang="en" className="h-full">
+      <body className="flex flex-col min-h-screen">
+        <NextUIProvider className="flex flex-col min-h-screen">
           <NavbarComponent />
-          {children}
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer/>
         </NextUIProvider>
       </body>
     </html>
