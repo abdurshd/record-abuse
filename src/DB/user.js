@@ -18,7 +18,7 @@ export async function UpdateThreadID(newThreadID, id) {
   await sql`UPDATE User_Information SET Thread_ID =(${newThreadID}) WHERE ID=(${id});`
 }
 
-export async function GetUserMessage(userID) {
+export async function GetMessagesByUserId(userID) {
   const message = await sql`SELECT * FROM Conversation WHERE User_ID=(${userID});`;
   return message.rows;
 }
