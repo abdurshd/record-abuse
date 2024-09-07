@@ -1,5 +1,5 @@
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link} from "@nextui-org/react";
 
 export default function NavbarComponent() {
   return (
@@ -22,12 +22,17 @@ export default function NavbarComponent() {
       }}
     >
       <NavbarBrand>
-        <p className="font-bold text-inherit">RECORD-ABUSE</p>
+        <Link href="/" className="font-bold text-inherit">RECORD-ABUSE</Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-          About us
+        <NavbarItem>
+          <Link href="/about">
+            About us
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link href="blog">
+            Articles
           </Link>
         </NavbarItem>
       </NavbarContent>
