@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
       <body className="flex flex-col min-h-screen">
         <NextUIProvider className="flex flex-col min-h-screen">
           <NavbarComponent />
-          <main className="flex-grow">
+          <main className="flex-grow m-24">
             {children}
           </main>
           <Footer/>

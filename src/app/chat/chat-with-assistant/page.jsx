@@ -1,16 +1,24 @@
 "use client"
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button} from "@nextui-org/react";
-import { Textarea } from '@nextui-org/input';
+import ResponseMessage from '@/components/ResponseMessage';
+import TextAreaComponent from '@/components/TextAreaComponent';
+import useSessionStorage from '@/hooks/useSessionStorage';
 
 export default function ChatWithAssistant() {
   const [threadId, setThreadId] = React.useState('thread_Lhr0CxsKIqxDuV2OZ0dAWdJT');
   const [message, setMessage] = React.useState('');
-  const [question, setQuestion] = React.useState('Hello how are you?');
+  const [question, setQuestion, removeQuestion] = useSessionStorage('question', 'Hello how are you?');
   const [isLoading, setLoading] = React.useState(false);
 
   const textAreaIsDisabled = isLoading;
+
+  useEffect(() => {
+    if (!question) {
+      setQuestion('Hello how are you?');
+    }
+  }, [question]);
 
   function handleMessageChange(e) {
     setMessage(e.target.value);
@@ -50,15 +58,19 @@ export default function ChatWithAssistant() {
 
   return (
     <>
-      <p>{question}</p>
+    
+    <ResponseMessage message={question} />
       {threadId !== '' && (
         <>
-          <Textarea
+          <TextAreaComponent
             value={message}
             isDisabled={textAreaIsDisabled}
             onChange={handleMessageChange}
           />
-          <Button onClick={handleSendMessage}>Send {threadId}</Button>
+          <div className="flex gap-4 mt-5">
+          <Button onClick={handleSendMessage} color='secondary'>Send {threadId}</Button>
+          <Button onClick={()=>removeQuestion()} color='warning'>Remove the assistant answer</Button>
+          </div>
         </>
       )}
       {threadId === '' && <Button onClick={handleCreateThread}>Create threadId</Button>}
