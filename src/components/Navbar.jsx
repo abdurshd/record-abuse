@@ -30,16 +30,6 @@ export default function NavbarComponent() {
           About us
           </Link>
         </NavbarItem>
-        <NavbarItem>
-          <Link href="#" color="foreground">
-            Articles
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            My records
-          </Link>
-        </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">

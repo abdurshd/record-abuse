@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { Button } from "@nextui-org/react";
 import TextAreaComponent from "@/components/TextArea";
 import ResponseMessage from "@/components/ResponseMessage";
 
