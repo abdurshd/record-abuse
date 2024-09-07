@@ -1,24 +1,17 @@
 "use client"
 
-import React, {useEffect} from 'react';
+import  React, {useEffect, useState} from 'react';
 import {Button} from "@nextui-org/react";
 import ResponseMessage from '@/components/ResponseMessage';
 import TextAreaComponent from '@/components/TextAreaComponent';
-import useSessionStorage from '@/hooks/useSessionStorage';
 
 export default function ChatWithAssistant() {
-  const [threadId, setThreadId] = React.useState('thread_Lhr0CxsKIqxDuV2OZ0dAWdJT');
-  const [message, setMessage] = React.useState('');
-  const [question, setQuestion, removeQuestion] = useSessionStorage('question', 'Hello how are you?');
-  const [isLoading, setLoading] = React.useState(false);
+  const [threadId, setThreadId] = useState('thread_Lhr0CxsKIqxDuV2OZ0dAWdJT');
+  const [message, setMessage] = useState('');
+  const [question, setQuestion] = useState('Hello how are you?');
+  const [isLoading, setLoading] = useState(false);
 
   const textAreaIsDisabled = isLoading;
-
-  useEffect(() => {
-    if (!question) {
-      setQuestion('Hello how are you?');
-    }
-  }, [question]);
 
   function handleMessageChange(e) {
     setMessage(e.target.value);
@@ -57,9 +50,8 @@ export default function ChatWithAssistant() {
   }
 
   return (
-    <>
-    
-    <ResponseMessage message={question} />
+    <div className="flex-col">
+      <ResponseMessage message={question} />
       {threadId !== '' && (
         <>
           <TextAreaComponent
@@ -67,13 +59,10 @@ export default function ChatWithAssistant() {
             isDisabled={textAreaIsDisabled}
             onChange={handleMessageChange}
           />
-          <div className="flex gap-4 mt-5">
-          <Button onClick={handleSendMessage} color='secondary'>Send {threadId}</Button>
-          <Button onClick={()=>removeQuestion()} color='warning'>Remove the assistant answer</Button>
-          </div>
+          <Button onClick={handleSendMessage}>Send {threadId}</Button>
         </>
       )}
       {threadId === '' && <Button onClick={handleCreateThread}>Create threadId</Button>}
-    </>
+    </div>
   );
 }

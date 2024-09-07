@@ -6,7 +6,7 @@ const TextAreaComponent = ({value, disabled, onChange}) => {
     <Textarea
       placeholder="Share your story here. You're brave and we're here to listen."      
       classNames={{
-        base: ["w-full", "h-full", "custom-textarea"],
+        base: ["w-[800]", "h-full", "custom-textarea"],
           input: [
             "focus:placeholder-transparent",
             "focus:border-blue-300",
@@ -15,6 +15,7 @@ const TextAreaComponent = ({value, disabled, onChange}) => {
       minRows={2}
       maxRows={20}
       value={value}
+      style={{ width: '900px' }}
       variant="faded"
       disabled={disabled}
       onChange={onChange}
