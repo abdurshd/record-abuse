@@ -26,12 +26,12 @@ export default function NavbarComponent() {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link href="/about">
+          <Link href="#">
             About us
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href="blog">
+          <Link href="#">
             Articles
           </Link>
         </NavbarItem>
