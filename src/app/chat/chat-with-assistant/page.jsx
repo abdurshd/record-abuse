@@ -42,7 +42,7 @@ export default function ChatWithAssistant() {
           question={question}
         />
       )}
-      {conversationId === null && <Button onClick={handleCreateFirstConversation} color="primary">I&apos;m reading</Button>}
+      {conversationId === null && <Button onClick={handleCreateFirstConversation} color="primary">I&apos;m ready</Button>}
     </CenteredLayout>
   );
 }
