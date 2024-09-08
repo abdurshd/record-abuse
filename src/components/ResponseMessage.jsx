@@ -12,7 +12,7 @@ const ResponseMessage = ({ message}) => {
             autoStart: true,
             delay: 10,
             loop: false,
-            deleteSpeed: 100000,
+            deleteSpeed: 10000000,
           }}
         />
       </div>
