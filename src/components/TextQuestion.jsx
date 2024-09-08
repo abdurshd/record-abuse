@@ -42,7 +42,14 @@ export default function TextQuestion({ setMessageType, conversationId, setConver
         isDisabled={isDisabledState}
         onChange={handleMessageChange}
       />
-      <Button color="primary" onClick={handleSendMessage} isLoading={isDisabledState}>Send</Button>
+      <Button color="primary" 
+        onClick={handleSendMessage} 
+        isLoading={isDisabledState} 
+        isDisabled={!message.trim()}
+      >
+        Send
+
+      </Button>
     </>
   );
 }

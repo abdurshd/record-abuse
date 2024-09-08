@@ -7,6 +7,8 @@ import CenteredLayout from '@/components/CenteredLayout';
 import FIRST_MESSAGE from '@/prompts/FIRST_QUESTION';
 import QuestionLogic from '@/components/QuestionLogic';
 
+const WELCOME_MESSAGE = "This is a safe space where you can share how you feel. Everything you tell us will stay completely private. We won't share anything unless you're ready. You don't have to be scared we're here to help and listen. You're not alone, and it's okay to talk when you're ready."
+
 export default function ChatWithAssistant() {
   const [conversationId, setConversationId] = useState(null);
   const [messageType, setMessageType] = useState('text');
@@ -29,7 +31,7 @@ export default function ChatWithAssistant() {
 
   return (
     <CenteredLayout className="gap-5" style={{ minHeight: "calc(100vh - 84px)"}}>
-      {conversationId === null &&<ResponseMessage message={"This is a safe space where you can share how you feel. Everything you tell us will stay completely private. We won't share anything unless you're ready. You don't have to be scared we're here to help and listen. You're not alone, and it's okay to talk when you're ready."} />}
+      {conversationId === null &&<ResponseMessage message={WELCOME_MESSAGE} />}
       {/* <p>conversationId: {conversationId}</p>
       <p>messageType: {messageType}</p> */}
       {conversationId !== null && (
