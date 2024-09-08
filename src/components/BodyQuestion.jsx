@@ -1,25 +1,29 @@
 'use client'
-import { sql } from "@vercel/postgres";
 import Image from "next/image";
 import bodyImage from "@/assets/images/body.png";
 import React from 'react'
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Textarea} from "@nextui-org/react";
 import PrettyJSON from "@/components/PrettyJSON";
+import ResponseMessage from "./ResponseMessage";
 
-export default function BodyQuestion() {
+export default function BodyQuestion({ setMessageType, conversationId, setConversationId, setQuestion }) {
+  const [isLoading, setLoading] = React.useState(false);
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [ message, setMessage ] = React.useState('');
   const [ messages, setMessages ] = React.useState([]);
-  const [clicks, setClicks] = React.useState([]);
-  const [ xPercent, setXPercent ] = setXPercent(null);
-  const [ yPercent, setYPercent ] = setYPercent(null);
+  const [ xPercent, setXPercent ] = React.useState(null);
+  const [ yPercent, setYPercent ] = React.useState(null);
   function handleMessageChange(e) {
     setMessage(e.target.value);
   }
 
   const handleOnClose = (onClose) => () => {
-    if(message) {setMessages((oldMessages) => [...oldMessages, message])}
+    if(message) {
+      setMessages((oldMessages) => [...oldMessages, { content: message, x: xPercent, y: yPercent }]);
+    }
     setMessage('');
+    setXPercent(null);
+    setYPercent(null);
     onClose();
   }
   const handleOnOpen = (event) => {
@@ -28,20 +32,38 @@ export default function BodyQuestion() {
     const y = event.clientY - rect.top;
     const imgWidth = rect.width;
     const imgHeight = rect.height;
+
     setXPercent((x / imgWidth) * 100)
     setYPercent((y / imgHeight) * 100)
     onOpen();
   }
 
-  const handleButton = () => {
-    console.log([xPercent, yPercent, messages])
+  const handleButton = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { conversation, messageType } = await fetch('/api/chat/message/body', {
+        method: 'POST',
+        body: JSON.stringify({ messages, conversationId }),
+      }).then(r => r.json());
+
+      setMessages([]);
+      setQuestion(conversation.question);
+      setConversationId(conversation.id);
+      setMessageType(messageType);
+    } catch (e) {
+      console.error(e);
+    }
+    setLoading(false);
   }
 
   return (
     <div>
-      <Image src={bodyImage} onClick={handleOnOpen} alt={'body picture for pointing out the body part that got hurt'}/>
+      <ResponseMessage message="Where did you get touch or hurt?" />
+      <Image src={bodyImage} onClick={handleOnOpen} alt={'body picture for pointing out the body part that got hurt'} />
       <PrettyJSON>{messages}</PrettyJSON>
-      <Button color="primary" onPress={handleButton}>
+      <Button color="primary" onClick={handleButton} isLoading={isLoading}>
         Done
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

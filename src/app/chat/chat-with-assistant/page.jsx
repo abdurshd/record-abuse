@@ -38,10 +38,11 @@ export default function ChatWithAssistant() {
           messageType={messageType}
           conversationId={conversationId} 
           setConversationId={setConversationId} 
-          setQuestion={setQuestion} 
+          setQuestion={setQuestion}
+          question={question}
         />
       )}
-      {conversationId === null && <Button onClick={handleCreateFirstConversation}>Start chatting</Button>}
+      {conversationId === null && <Button onClick={handleCreateFirstConversation} color="primary">I'm reading</Button>}
     </CenteredLayout>
   );
 }

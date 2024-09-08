@@ -21,7 +21,7 @@ export async function UpdateThreadID(newThreadID, id) {
 }
 
 export async function GetMessagesByUserId(userID) {
-  const message = await sql`SELECT * FROM Conversation WHERE User_ID=(${userID});`;
+  const message = await sql`SELECT * FROM Conversation WHERE User_ID=(${userID}) ORDER BY CREATED_AT ASC;`;
   return message.rows;
 }
 
@@ -44,7 +44,7 @@ export async function getLatestConversation(userID) {
   return conversation.rows
 }
 
-export async function createAbuse(x, y, conversationID, message) {
-  await sql`INSERT INTO Physical_Abuse (X, Y, Conversation_ID, Message) VALUES (x, y, conversationID, message)`;
+export async function createAbuse({ x, y, conversationID, message }) {
+  await sql`INSERT INTO Physical_Abuse (X, Y, Conversation_ID, Message) VALUES (${x}, ${y}, ${conversationID}, ${message})`;
 }
 
