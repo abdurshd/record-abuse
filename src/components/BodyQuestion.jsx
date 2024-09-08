@@ -58,6 +58,8 @@ export default function BodyQuestion({ setMessageType, conversationId, setConver
     setLoading(false);
   }
 
+  const stringifiedMessages =  JSON.stringify(messages, null, 2);
+
   return (
     <div className="flex flex-1 flex-col gap-5">
       <ResponseMessage message="Where did you get touched or hurt?" />
@@ -67,6 +69,11 @@ export default function BodyQuestion({ setMessageType, conversationId, setConver
         className="self-center"
         alt={'body picture for pointing out the body part that got hurt'}
       />
+       <ol>
+        {messages.map((item, index) => (
+          <li key={index}>{index+1}. {item.content}</li>
+        ))}
+      </ol>
       <Button color="primary" onClick={handleButton} isLoading={isLoading}>
         Done
       </Button>
@@ -78,7 +85,7 @@ export default function BodyQuestion({ setMessageType, conversationId, setConver
               <ModalBody>
               <Textarea
                   autoFocus
-                  label="What did he do here?"
+                  // label="What did he do here?"
                   placeholder="He hit me here with a pool cue."
                   variant="bordered"
                   onChange={handleMessageChange}
