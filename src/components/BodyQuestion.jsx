@@ -60,7 +60,7 @@ export default function BodyQuestion({ setMessageType, conversationId, setConver
 
   return (
     <div className="flex flex-1 flex-col gap-5">
-      <ResponseMessage message="Where did you get touch or hurt?" />
+      <ResponseMessage message="Where did you get touched or hurt?" />
       <Image
         src={bodyImage}
         onClick={handleOnOpen}
