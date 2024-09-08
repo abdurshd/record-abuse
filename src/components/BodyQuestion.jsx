@@ -59,10 +59,14 @@ export default function BodyQuestion({ setMessageType, conversationId, setConver
   }
 
   return (
-    <div>
+    <div className="flex flex-1 flex-col gap-5">
       <ResponseMessage message="Where did you get touch or hurt?" />
-      <Image src={bodyImage} onClick={handleOnOpen} alt={'body picture for pointing out the body part that got hurt'} className="m-auto"/>
-      {/* <PrettyJSON>{messages}</PrettyJSON> */}
+      <Image
+        src={bodyImage}
+        onClick={handleOnOpen}
+        className="self-center"
+        alt={'body picture for pointing out the body part that got hurt'}
+      />
       <Button color="primary" onClick={handleButton} isLoading={isLoading}>
         Done
       </Button>
@@ -70,11 +74,11 @@ export default function BodyQuestion({ setMessageType, conversationId, setConver
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Tell us more details</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">What happened?</ModalHeader>
               <ModalBody>
               <Textarea
                   autoFocus
-                  label="How did they hit you here?"
+                  label="What did he do here?"
                   placeholder="He hit me here with a pool cue."
                   variant="bordered"
                   onChange={handleMessageChange}
