@@ -18,13 +18,17 @@ function AssistantMessage({children}) {
 }
 
 function UserMessage({children}) {
-  return (
-    <Card className="bg-blue-500">
-      <CardBody>
-        <p className="text-right text-white">{children}</p>
-      </CardBody>
-    </Card>
-  );
+  if(children == null) {
+   return ''
+  } else {
+    return (
+      <Card className="bg-blue-500">
+        <CardBody>
+          <p className="text-right text-white">{children}</p>
+        </CardBody>
+      </Card>
+    );
+  }
 }
 
 export default async function User({ params }) {
