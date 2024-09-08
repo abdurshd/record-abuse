@@ -29,7 +29,7 @@ export default function ChatWithAssistant() {
 
   return (
     <CenteredLayout className="gap-5" style={{ minHeight: "calc(100vh - 84px)"}}>
-      <ResponseMessage message={question} />
+        {conversationId === null &&<ResponseMessage message={"This is a safe space where you can share how you feel. Everything you tell us will stay completely private. We won't share anything unless you're ready. You don't have to be scared we're here to help and listen. You're not alone, and it's okay to talk when you're ready."} />}
       {/* <p>conversationId: {conversationId}</p>
       <p>messageType: {messageType}</p> */}
       {conversationId !== null && (
