@@ -30,8 +30,8 @@ export default function ChatWithAssistant() {
   return (
     <CenteredLayout className="gap-5" style={{ minHeight: "calc(100vh - 84px)"}}>
       <ResponseMessage message={question} />
-      <p>conversationId: {conversationId}</p>
-      <p>messageType: {messageType}</p>
+      {/* <p>conversationId: {conversationId}</p>
+      <p>messageType: {messageType}</p> */}
       {conversationId !== null && (
         <QuestionLogic 
           setMessageType={setMessageType} 

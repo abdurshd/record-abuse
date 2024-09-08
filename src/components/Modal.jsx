@@ -1,10 +1,9 @@
 "use client"
 import React from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 
-export default function ModalExample() {
-  const {isOpen, onOpen, onClose} = useDisclosure();
-
+const CustomModal = ({ title, bodyContent, primaryAction, secondaryAction, primaryLabel, secondaryLabel }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleOpen = () => {
     onOpen();
@@ -13,45 +12,29 @@ export default function ModalExample() {
   return (
     <>
       <div className="flex flex-wrap gap-3">
-          <Button  
-            variant="flat" 
-            color="warning" 
-            onPress={() => handleOpen()}
-            className="capitalize"
-          >
-           {"Blur"}
-          </Button>
+        <Button  
+          variant="flat" 
+          color="warning" 
+          onPress={() => handleOpen()}
+          className="capitalize"
+        >
+          {"Blur"}
+        </Button>
       </div>
       <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose}>
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
               <ModalBody>
-                <p> 
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                  dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. 
-                  Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. 
-                  Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur 
-                  proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+                {bodyContent}
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                <Button color="danger" variant="light" onPress={secondaryAction || onClose}>
+                  {secondaryLabel || "Close"}
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
+                <Button color="primary" onPress={primaryAction || onClose}>
+                  {primaryLabel || "Action"}
                 </Button>
               </ModalFooter>
             </>
@@ -60,4 +43,6 @@ export default function ModalExample() {
       </Modal>
     </>
   );
-}
+};
+
+export default CustomModal;
