@@ -29,16 +29,15 @@ export default function ChatWithAssistant() {
 
   return (
     <CenteredLayout className="gap-5" style={{ minHeight: "calc(100vh - 84px)"}}>
-      <ResponseMessage message={question} />
-      <p>conversationId: {conversationId}</p>
-      <p>messageType: {messageType}</p>
+      <p>conversationId: {conversationId} | messageType: {messageType}</p>
       {conversationId !== null && (
         <QuestionLogic 
           setMessageType={setMessageType} 
           messageType={messageType}
           conversationId={conversationId} 
           setConversationId={setConversationId} 
-          setQuestion={setQuestion} 
+          setQuestion={setQuestion}
+          question={question}
         />
       )}
       {conversationId === null && <Button onClick={handleCreateFirstConversation}>Start chatting</Button>}
